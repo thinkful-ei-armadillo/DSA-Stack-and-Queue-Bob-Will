@@ -1,0 +1,106 @@
+'use strict';
+
+// create a node containing the data and a reference to next item
+class _Node {
+  constructor(data, next) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+  }
+
+  // method that puts data at the top of the stack
+  push(data) {
+    if (this.top === null) {
+      this.top = new _Node(data, null);
+      return this.top;
+    }
+    const node = new _Node(data, this.top);
+    this.top = node;
+  }
+
+  // remove data from the top of the stack
+  pop() {
+    const node = this.top;
+    this.top = node.next;
+    return node.data;
+  }
+}
+
+// allows you to look at the top of stack without removing
+function peek(starTrek) {
+  if (starTrek.top === null) {
+    return null;
+  }
+  return starTrek.top.data;
+}
+
+// check if stack is empty
+function isEmpty(starTrek) {
+  if (starTrek.top === null) {
+    return true;
+  }
+  return false;
+}
+
+// display everything in stack
+function display(starTrek) {
+  let node = starTrek.top;
+  while (node !== null) {
+    console.log(node.data);
+    node = node.next;
+  }
+}
+
+let starTrek = new Stack();
+starTrek.push('Kirk');
+starTrek.push('Spock');
+starTrek.push('McCoy');
+starTrek.push('Scotty');
+starTrek.pop();
+starTrek.pop();
+// console.log(display(starTrek));
+
+
+// 3. Check for palindromes using a stack
+
+function is_palindrome(s) {
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+
+  let newStack = new Stack();
+
+  for (let i = 0; i < s.length; i++) {
+    newStack.push(s[i]);
+  }
+  let newString = '';
+  for (let i = 0; i < s.length; i++) {
+    newString += newStack.pop();
+  }
+  return newString === s;
+}
+
+// True, true, true, false
+console.log(is_palindrome('dad'));
+console.log(is_palindrome('A man, a plan, a canal: Panama'));
+console.log(is_palindrome('1001'));
+console.log(is_palindrome('Tauhida'));
+
+
+// 4. Matching parentheses in an expression
+
+function balanced(s) {
+
+  let stack = new Stack();
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') {
+      stack.push(s[i]);
+    }
+  }
+
+
+}
