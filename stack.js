@@ -193,12 +193,3 @@ class StackQueue {
 
 }
 
-let queue = new StackQueue();
-queue.enqueue('test');
-queue.enqueue('testing again');
-queue.enqueue('testing again again');
-console.log(queue.dequeue());
-console.log(queue.dequeue());
-queue.enqueue('test');
-queue.enqueue('testing again');
-console.log(queue);

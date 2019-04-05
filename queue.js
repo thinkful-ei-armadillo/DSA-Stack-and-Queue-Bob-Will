@@ -111,16 +111,60 @@ function display(starTrekQ) {
   }
 }
 
-let starTrekQ = new DoublyQueue();
-starTrekQ.enqueue('Kirk');
-starTrekQ.enqueue('Spock');
-starTrekQ.enqueue('Uhura');
-starTrekQ.enqueue('Sulu');
-starTrekQ.enqueue('Checkov');
+let lineOfPeople = new Queue();
+lineOfPeople.enqueue('F Jane');
+lineOfPeople.enqueue('M Frank');
+lineOfPeople.enqueue('M John');
+lineOfPeople.enqueue('F Madonna');
+lineOfPeople.enqueue('M David');
+lineOfPeople.enqueue('M Christopher');
+lineOfPeople.enqueue('M Sherlock');
+lineOfPeople.enqueue('F Beyonce');
 
-display(starTrekQ);
+function squareDanceSort(line) {
+  let spares = new Queue();
+  while(line.first !== null) {
+    if (isEmpty(spares)) {
+      spares.enqueue(line.dequeue());
+    }
+    else {
+      if (spares.first.value[0] !== line.first.value[0]) {
+        console.log(`${spares.dequeue()} is paired with ${line.dequeue()}`)
+      } 
+      else {
+        spares.enqueue(line.dequeue());
+      }
+    }
+  }
+  if (spares.first !== null) {
+    let gender = spares.first.value[0];
+    let length = 0;
+    while(spares.first !== null) {
+      length++;
+      spares.first = spares.first.next;
+    }
+    console.log(`there are ${length} ${gender} dancers waiting to dance`)
+  }
+}
 
-// Check to see who is first one on the Queue?
-// Kirk
+//squareDanceSort(lineOfPeople);
 
+//expected output 
+//Female dancer is Jane, and the male dancer is Frank
+// Female dancer is Madonna, and the male dancer is John
+// Female dancer is Beyonce, and the male dancer is Sherlock
+// There are 2 male dancers waiting to dance
+
+function ophidianLine(line) {
+  while(line.first !== null) {
+    console.log('next step');
+    display(line);
+    let current = line.dequeue();
+    if (Math.floor(Math.random()*4) === 3) {
+      line.enqueue(current);
+    }
+  }
+}
+
+ophidianLine(lineOfPeople);
 
