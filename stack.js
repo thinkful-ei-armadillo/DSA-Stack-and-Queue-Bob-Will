@@ -163,10 +163,42 @@ function sort(stack) {
   return stack;
 }
 
-let stack = new Stack();
-stack.push(2);
-stack.push(6);
-stack.push(3);
-stack.push(5);
-display(stack);
-display(sort(stack));
+class StackQueue {
+  constructor() {
+    this.inputStack = new Stack();
+    this.outputStack = new Stack();
+  }
+
+  enqueue(data) {
+    if (isEmpty(this.inputStack)) {
+      this.inputStack.push(data);
+    }
+    else {
+      this.outputStack.push(data);
+    }
+  }
+
+  dequeue() {
+    if(isEmpty(this.inputStack)) {
+      return null;
+    }
+    let result = this.inputStack.pop();
+    if (isEmpty(this.inputStack)) {
+      while(!isEmpty(this.outputStack)) {
+        this.inputStack.push(this.outputStack.pop());
+      }
+    }
+    return result;
+  }
+
+}
+
+let queue = new StackQueue();
+queue.enqueue('test');
+queue.enqueue('testing again');
+queue.enqueue('testing again again');
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+queue.enqueue('test');
+queue.enqueue('testing again');
+console.log(queue);
