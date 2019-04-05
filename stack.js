@@ -140,3 +140,33 @@ function balanced(s) {
 
 // let someString = `'][])({}}' "`;
 // console.log(balanced(someString));
+
+
+// 5. Sort stack
+
+function sort(stack) {
+  let tempStack = new Stack();
+  let tempValue;
+
+  while(!isEmpty(stack)) {
+    tempValue = stack.pop();
+
+    while(peek(tempStack) > tempValue && tempStack.top !== null) {
+      stack.push(tempStack.pop());
+    }
+    tempStack.push(tempValue);
+  }
+
+  while(!isEmpty(tempStack)) {
+    stack.push(tempStack.pop());
+  }
+  return stack;
+}
+
+let stack = new Stack();
+stack.push(2);
+stack.push(6);
+stack.push(3);
+stack.push(5);
+display(stack);
+display(sort(stack));
