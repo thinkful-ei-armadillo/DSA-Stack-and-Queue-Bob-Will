@@ -74,7 +74,7 @@ function is_palindrome(s) {
   let newStack = new Stack();
 
   for (let i = 0; i < s.length; i++) {
-    newStack.push(s[i]);
+    newStack.push(s[1]);
   }
   let newString = '';
   for (let i = 0; i < s.length; i++) {
@@ -84,10 +84,10 @@ function is_palindrome(s) {
 }
 
 // True, true, true, false
-console.log(is_palindrome('dad'));
-console.log(is_palindrome('A man, a plan, a canal: Panama'));
-console.log(is_palindrome('1001'));
-console.log(is_palindrome('Tauhida'));
+// console.log(is_palindrome('dad'));
+// console.log(is_palindrome('A man, a plan, a canal: Panama'));
+// console.log(is_palindrome('1001'));
+// console.log(is_palindrome('Tauhida'));
 
 
 // 4. Matching parentheses in an expression
@@ -96,11 +96,47 @@ function balanced(s) {
 
   let stack = new Stack();
 
+  let index = 0;
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === '(') {
-      stack.push(s[i]);
+    let current = s[i];
+    // check if we should close quotes
+    if (current === `'`) {
+      if (peek(stack) === `'`) {
+        stack.pop();
+      } else {
+        stack.push(`'`);
+      }
     }
+    if (current === `"`) {
+      if (peek(stack) ===`"`) {
+        stack.pop();
+      } else {
+        stack.push(`"`);
+      }
+    }
+    //if we are inside quotes, wild west rules
+    if(!(peek(stack) === `'` || peek(stack) === `"`)) {
+      //otherwise check if brackets are in legal places
+      if (current === '(' || current === '[' || current === '{') {
+        stack.push(current);
+      }
+      else if (
+        (current === ')' && peek(stack) === '(' ) || 
+        (current === ']' && peek(stack) === '[' ) || 
+        (current === '}' && peek(stack) === '{' ) ){
+        stack.pop();
+      }
+      else if (current === ')' || current === ']' || current === '}') {
+        return `expecting a closing ${peek(stack)} but found ${current}`;
+      }}
+
+    index++;
   }
-
-
+  if (!isEmpty(stack)) {
+    return `${peek(stack)} has no buddy`;
+  }
+  return 'you know how things work!';
 }
+
+// let someString = `'][])({}}' "`;
+// console.log(balanced(someString));
